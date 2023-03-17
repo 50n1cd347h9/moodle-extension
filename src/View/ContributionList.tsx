@@ -8,19 +8,19 @@ const ContributionList = () => {
   const days = [1, 2, 3, 4, 5, 6, 7];
   const weeks = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ];
 
   return (
-    <div>
-      <Div>
+    <Outer>
+      <Inner>
         {weeks.map((week) => {
           return (
             <Row>
               <div style={{ marginLeft: "3px" }}>a</div>
-              {days.map((day) => {
+              {days.map((day, index) => {
                 return (
-                  <Tooltip title={day} arrow={true}>
+                  <Tooltip title={day} arrow={true} key={index}>
                     <Column></Column>
                   </Tooltip>
                 );
@@ -28,18 +28,22 @@ const ContributionList = () => {
             </Row>
           );
         })}
-      </Div>
-    </div>
+      </Inner>
+    </Outer>
   );
 };
-
-const Div = styled.div`
+const Outer = styled.div`
+  width: 100%;
+  margin: 0 16px 16px 16px;
+  padding: 16px 16px 0 16px;
+  border: solid 1px #2e2f2e;
+`;
+const Inner = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
   color: red;
-  padding: 16px;
-  text-align: ceter;
+  text-align: center;
   height: fit-content;
   background-color: #202020;
   align-content: center;
@@ -48,7 +52,9 @@ const Div = styled.div`
 const Row = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-x: scroll;
 `;
+
 const Column = styled.div`
   background-color: green;
   border-spacing: 3px;
