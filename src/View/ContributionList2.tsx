@@ -11,51 +11,18 @@ import Paper from "@mui/material/Paper";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { Row, Column } from "../components/globals";
-
-interface Aiueo {
-  Sun: Array<number>;
-  Mon: Array<number>;
-  Tue: Array<number>;
-  Wed: Array<number>;
-  Thu: Array<number>;
-  Fri: Array<number>;
-  Sat: Array<number>;
-}
+import calendarFormatted from "../Calendar";
 
 const ContributionList = () => {
-  const week: Array<string> = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const date = new Date();
-  const year = date.getFullYear();
-  const months: Array<String> = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+  const weeks: Array<string> = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
   ];
-  //　1月1日のDateインスタンスを作成
-  const JanuaryFirst = new Date(year, 1 - 0, 1);
-  // 1月1日の曜日を特定。0が日曜日
-  const firstWeek = JanuaryFirst.getDay();
-  //カレンダーの1行目の1番左のブロックの月日
-  const firstBlockDay = (firstWeek) => {
-    let i;
-    switch (firstWeek) {
-      case 0: {
-        i = ;
-        break;
-      }
-    }
-  };
-
-  const calender = {};
 
   return (
     <Outer>
@@ -71,8 +38,27 @@ const ContributionList = () => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead></TableHead>
               <TableBody>
-                {week.map((day) => (
-                  <TableRow></TableRow>
+                {calendarFormatted.map((row, rowIndex) => (
+                  <TableRow>
+                    <div
+                      style={{
+                        color: rowIndex % 2 == 0 ? "rgba(32, 32, 32, 0)" : "",
+                      }}
+                    >
+                      {weeks[rowIndex]}
+                    </div>
+                    {row.map((data, cellIndex) => (
+                      <TableCell style={{ padding: "0", margin: "1px" }}>
+                        <Tooltip title={data} arrow={true} key={cellIndex}>
+                          <DayBlock
+                            style={{
+                              display: data != null ? "content" : "none",
+                            }}
+                          ></DayBlock>
+                        </Tooltip>
+                      </TableCell>
+                    ))}
+                  </TableRow>
                 ))}
               </TableBody>
             </Table>
@@ -102,7 +88,7 @@ const TableWrapper = styled.div`
   white-space: nowrap;
 `;
 
-const WeekBlock = styled.div`
+const DayBlock = styled.div`
   background-color: green;
   border-spacing: 3px;
   outline: 1px solid rgba(255, 255, 255, 0.05);
