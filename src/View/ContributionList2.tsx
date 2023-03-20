@@ -13,47 +13,49 @@ import Button from "@mui/material/Button";
 import { Row, Column } from "../components/globals";
 
 interface Aiueo {
-     Sun: Array<number>; 
-        Mon: Array<number>; 
-           Tue: Array<number>;  
-             Wed: Array<number>;    
-             Thu: Array<number>;   
-              Fri: Array<number>; 
-                Sat: Array<number>;
+  Sun: Array<number>;
+  Mon: Array<number>;
+  Tue: Array<number>;
+  Wed: Array<number>;
+  Thu: Array<number>;
+  Fri: Array<number>;
+  Sat: Array<number>;
 }
 
 const ContributionList = () => {
-    
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const weeks = {
-    Sun: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ],
-    Mon: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ],
-    Tue: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ],
-    Wed: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ],
-    Thu: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ],
-    Fri: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ],
-    Sat: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ],
-  } as Aiueo;
+  const week: Array<string> = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const date = new Date();
+  const year = date.getFullYear();
+  const months: Array<String> = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  //　1月1日のDateインスタンスを作成
+  const JanuaryFirst = new Date(year, 1 - 0, 1);
+  // 1月1日の曜日を特定。0が日曜日
+  const firstWeek = JanuaryFirst.getDay();
+  //カレンダーの1行目の1番左のブロックの月日
+  const firstBlockDay = (firstWeek) => {
+    let i;
+    switch (firstWeek) {
+      case 0: {
+        i = ;
+        break;
+      }
+    }
+  };
 
-  document
-    .querySelectorAll("*")
-    .forEach((el) =>
-      el.clientWidth > document.body.clientWidth ? console.log(el) : null
-    );
+  const calender = {};
 
   return (
     <Outer>
@@ -69,14 +71,8 @@ const ContributionList = () => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead></TableHead>
               <TableBody>
-                {Object.keys(weeks).map((week: keyof Aiueo) => (
-                  <TableRow>
-                    {weeks[week].map((data: number) => (
-                      <TableCell>
-                        <WeekBlock>{data}</WeekBlock>
-                      </TableCell>
-                    ))}
-                  </TableRow>
+                {week.map((day) => (
+                  <TableRow></TableRow>
                 ))}
               </TableBody>
             </Table>
@@ -91,6 +87,7 @@ const ContributionList = () => {
     </Outer>
   );
 };
+
 const Outer = styled.div`
   width: 100%;
   padding: 0 16px 16px 16px;
