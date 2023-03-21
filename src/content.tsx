@@ -15,6 +15,7 @@ import styled from "styled-components";
 import Page from "./View/page";
 import ContributionList from "./View/ContributionList";
 import ContributionList2 from "./View/ContributionList2";
+
 const app = document.createElement("div");
 const pageHeader = document.getElementById("page-header") as HTMLElement;
 pageHeader.append(app);

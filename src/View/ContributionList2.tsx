@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { Tooltip } from "@mui/material";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { useState } from "react";
 import Button from "@mui/material/Button";
 import { Row, Column } from "../components/globals";
 import calendarFormatted from "../Calendar";
+import Tooltip from "../components/Tooltip";
+
+type LabelTdProps = {
+  index: number;
+};
+
+type DataBlockProps = {
+  index: string | null;
+};
 
 const ContributionList = () => {
   const weeks: Array<string> = [
@@ -35,7 +35,28 @@ const ContributionList = () => {
       >
         <Column style={{ width: "fitContent" }}>
           <TableWrapper>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <StyledTable>
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                {calendarFormatted.map((row, rowIndex) => (
+                  <StyledTr>
+                    <LabelTd index={rowIndex}>
+                      <span> {weeks[rowIndex]}</span>
+                    </LabelTd>
+                    {row.map((data, cellIndex) => (
+                      <StyledTd>
+                        <Tooltip content={data} location="top">
+                          <DataBlock index={data}></DataBlock>
+                        </Tooltip>
+                      </StyledTd>
+                    ))}
+                  </StyledTr>
+                ))}
+              </tbody>
+            </StyledTable>
+            {/* <StyledTable aria-label="simple table">
               <TableHead></TableHead>
               <TableBody>
                 {calendarFormatted.map((row, rowIndex) => (
@@ -48,7 +69,7 @@ const ContributionList = () => {
                       {weeks[rowIndex]}
                     </div>
                     {row.map((data, cellIndex) => (
-                      <TableCell style={{ padding: "0", margin: "1px" }}>
+                      <StyledTableCell>
                         <Tooltip title={data} arrow={true} key={cellIndex}>
                           <DayBlock
                             style={{
@@ -56,12 +77,12 @@ const ContributionList = () => {
                             }}
                           ></DayBlock>
                         </Tooltip>
-                      </TableCell>
+                      </StyledTableCell>
                     ))}
                   </TableRow>
                 ))}
               </TableBody>
-            </Table>
+            </StyledTable> */}
           </TableWrapper>
           <Row style={{ width: "fitContent" }}>aiueo</Row>
         </Column>
@@ -88,15 +109,48 @@ const TableWrapper = styled.div`
   white-space: nowrap;
 `;
 
-const DayBlock = styled.div`
-  background-color: green;
-  border-spacing: 3px;
-  outline: 1px solid rgba(255, 255, 255, 0.05);
+const DataBlock = styled.div<DataBlockProps>`
+  /* display: ${(props) => (props.index == null ? "none" : "content")}; */
+  background-color: ${(props) => (props.index == null ? "none" : "green")};
+  border-spacing: 0px;
+  outline: ${(props) =>
+    props.index == null ? "none" : "1px solid rgba(255, 255, 255, 0.05)"};
   outline-offset: -1px;
-  margin: 2px;
+  margin: 0px;
   height: 10px;
   width: 10px;
   border-radius: 2px;
+`;
+
+const StyledTable = styled.table`
+  border-spacing: 3px;
+  overflow: hidden;
+  position: relative;
+  width: max-content;
+  border-collapse: separate;
+`;
+
+const LabelTd = styled.td<LabelTdProps>`
+  width: 28px;
+  position: relative;
+  font-size: 12px;
+  color: ${(props) => (props.index % 2 == 0 ? "rgba(32, 32, 32, 0)" : "")};
+  text-align: left;
+  padding: 0.125em 0.5em 0.125em 0;
+  z-index: 9;
+  span {
+    position: absolute;
+    bottom: -2px;
+  }
+`;
+
+const StyledTr = styled.tr`
+  display: flex;
+  flex-direction: row;
+`;
+
+const StyledTd = styled.td`
+  padding: 2px;
 `;
 
 export default ContributionList;
