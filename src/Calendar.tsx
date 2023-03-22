@@ -105,8 +105,8 @@ for (let i = 0; i < 7; i++) {
 //
 
 //
-console.log(calendarSliced);
-console.log(calendarFormatted);
+// console.log(calendarSliced);
+// console.log(calendarFormatted);
 //
 
 export default calendarFormatted;

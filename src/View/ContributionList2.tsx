@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { Row, Column } from "../components/globals";
 import calendarFormatted from "../Calendar";
 import Tooltip from "../components/Tooltip";
+// import { Tooltip } from "@mui/material";
 
 type LabelTdProps = {
   index: number;
@@ -13,7 +14,7 @@ type DataBlockProps = {
   index: string | null;
 };
 
-const ContributionList = () => {
+const ContributionList2 = () => {
   const weeks: Array<string> = [
     "Sun",
     "Mon",
@@ -41,13 +42,13 @@ const ContributionList = () => {
               </thead>
               <tbody>
                 {calendarFormatted.map((row, rowIndex) => (
-                  <StyledTr>
+                  <StyledTr key={rowIndex}>
                     <LabelTd index={rowIndex}>
                       <span> {weeks[rowIndex]}</span>
                     </LabelTd>
                     {row.map((data, cellIndex) => (
-                      <StyledTd>
-                        <Tooltip content={data} location="top">
+                      <StyledTd key={cellIndex}>
+                        <Tooltip label={data}>
                           <DataBlock index={data}></DataBlock>
                         </Tooltip>
                       </StyledTd>
@@ -56,33 +57,6 @@ const ContributionList = () => {
                 ))}
               </tbody>
             </StyledTable>
-            {/* <StyledTable aria-label="simple table">
-              <TableHead></TableHead>
-              <TableBody>
-                {calendarFormatted.map((row, rowIndex) => (
-                  <TableRow>
-                    <div
-                      style={{
-                        color: rowIndex % 2 == 0 ? "rgba(32, 32, 32, 0)" : "",
-                      }}
-                    >
-                      {weeks[rowIndex]}
-                    </div>
-                    {row.map((data, cellIndex) => (
-                      <StyledTableCell>
-                        <Tooltip title={data} arrow={true} key={cellIndex}>
-                          <DayBlock
-                            style={{
-                              display: data != null ? "content" : "none",
-                            }}
-                          ></DayBlock>
-                        </Tooltip>
-                      </StyledTableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </StyledTable> */}
           </TableWrapper>
           <Row style={{ width: "fitContent" }}>aiueo</Row>
         </Column>
@@ -98,6 +72,7 @@ const ContributionList = () => {
 const Outer = styled.div`
   width: 100%;
   padding: 0 16px 16px 16px;
+  position: relative;
   /* border: solid 1px #2e2f2e; */
 `;
 
@@ -125,7 +100,7 @@ const DataBlock = styled.div<DataBlockProps>`
 const StyledTable = styled.table`
   border-spacing: 3px;
   overflow: hidden;
-  position: relative;
+  /* position: relative; */
   width: max-content;
   border-collapse: separate;
 `;
@@ -153,4 +128,4 @@ const StyledTd = styled.td`
   padding: 2px;
 `;
 
-export default ContributionList;
+export default ContributionList2;
